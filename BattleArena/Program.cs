@@ -7,30 +7,31 @@ using System.Threading.Tasks;
 
 namespace BattleArena
 {
-    
-    
+
     internal class Program
     {
         static void Main(string[] args)
         {
-            Warrior Raymond = new Warrior("Raymond", 100, 30, "Plasma Slash");
-           Warrior Kirk = new Warrior("Kirk", 200, 15, "Kinagat");
-            Warrior Jibi = new Warrior("Jibi", 150, 20, "Sinargo");
+            int round = 1;
+            var Raymond = new Marksman("Raymond", 100, 30);
+            var Kirk = new Fighter("Kirk", 200, 15);
+            var Jibi = new Tank("Jibi", 150, 30, 20);
 
             Raymond.DisplayStatus();
             Kirk.DisplayStatus();
             Jibi.DisplayStatus();
-
-            int round = 1;
+             
             while(Raymond.IsAlive && Kirk.IsAlive && Jibi.IsAlive)
             {
-                Console.WriteLine($"----------Round {round}-----------------");
+                
                 Raymond.Attack(Kirk);
-                Kirk.Attack(Raymond);
-                Jibi.Attack(Kirk);
-                Console.WriteLine("---------------------------");
+                Console.WriteLine("----------------------------------------------");
+                Jibi.Attack(Raymond);
+                Console.WriteLine("----------------------------------------------");
                 round++;
             }
+
+            Console.ReadKey();
         }
-    }
+    } 
 }
