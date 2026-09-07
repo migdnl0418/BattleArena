@@ -13,21 +13,24 @@ namespace BattleArena
     {
         static void Main(string[] args)
         {
-            Warrior Raymond = new Warrior("Raymond", 100, 30);
-            Warrior Kirk = new Warrior("Kirk", 200, 15);
-            Warrior Jibi = new Warrior("Jibi", 150, 20);
+            Warrior Raymond = new Warrior("Raymond", 100, 30, "Plasma Slash");
+           Warrior Kirk = new Warrior("Kirk", 200, 15, "Kinagat");
+            Warrior Jibi = new Warrior("Jibi", 150, 20, "Sinargo");
 
-            Console.WriteLine($"{Raymond.Name} has " + 
-                $"{Raymond.Health} health and {Raymond.AttackPower} " + $"attack power.");
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine($"{Kirk.Name} has " +
-                $"{Kirk.Health} health and {Kirk.AttackPower} attack power.");
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine($"{Jibi.Name} has " +
-                $"{Jibi.Health} health and {Jibi.AttackPower} attack power.");
-            Console.WriteLine("-----------------------------------");
+            Raymond.DisplayStatus();
+            Kirk.DisplayStatus();
+            Jibi.DisplayStatus();
 
-            Console.ReadKey();
+            int round = 1;
+            while(Raymond.IsAlive && Kirk.IsAlive && Jibi.IsAlive)
+            {
+                Console.WriteLine($"----------Round {round}-----------------");
+                Raymond.Attack(Kirk);
+                Kirk.Attack(Raymond);
+                Jibi.Attack(Kirk);
+                Console.WriteLine("---------------------------");
+                round++;
+            }
         }
     }
 }
