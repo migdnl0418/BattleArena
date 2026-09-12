@@ -13,9 +13,9 @@ namespace BattleArena
         static void Main(string[] args)
         {
             int round = 1;
-            var Raymond = new Marksman("Raymond", 100, 30);
-            var Kirk = new Fighter("Kirk", 200, 15);
-            var Jibi = new Tank("Jibi", 150, 30, 20);
+            var Raymond = new Raymond(100, 30);
+            var Kirk = new Kirk(200, 15, 10);
+            var Jibi = new Jibi(150, 30, 15);
 
             Raymond.DisplayStatus();
             Kirk.DisplayStatus();
@@ -23,10 +23,12 @@ namespace BattleArena
              
             while(Raymond.IsAlive && Kirk.IsAlive && Jibi.IsAlive)
             {
-                
+                Console.WriteLine("\n\n==========================================");
                 Raymond.Attack(Kirk);
+                Kirk.DisplayStatus();
                 Console.WriteLine("----------------------------------------------");
                 Jibi.Attack(Raymond);
+                Jibi.DisplayStatus();
                 Console.WriteLine("----------------------------------------------");
                 round++;
             }
