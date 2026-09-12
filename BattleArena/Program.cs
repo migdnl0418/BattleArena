@@ -14,7 +14,7 @@ namespace BattleArena
         {
             int round = 1;
             var Raymond = new Raymond(100, 30);
-            var Kirk = new Kirk(200, 15, 10);
+            var Kirk = new Kirk(200, 15, 10, Enums.TeamType.A);
             var Jibi = new Jibi(150, 30, 15);
 
             Raymond.DisplayStatus();

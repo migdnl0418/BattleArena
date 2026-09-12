@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BattleArena.Abilities;
+using BattleArena.Combat;
+using BattleArena.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,21 +9,18 @@ using System.Threading.Tasks;
 
 namespace BattleArena.Warriors
 {
-    public enum WarriorType
-    {
-        Fighter,
-        Marksman,
-        Tank,
-    }
-    public abstract class Warrior
+    public abstract class Warrior: IHealable
     {
         private bool _isAlive;
         protected DamageInfo _damageTaken;
-        private Random _random = new Random();
+        protected Random _random = new Random();
+        private bool _hasCriticalChance;
+
         public string Name { get; private set; }
         public int Health { get; private set; }
         public int AttackPower { get; private set; }
         public WarriorType WarriorType { get; private set; }
+        public TeamType TeamType { get; private set; }
         public bool IsAlive
         {
             get {
@@ -29,8 +29,6 @@ namespace BattleArena.Warriors
             }
             private set { _isAlive = value; }
         }
-
-        private bool _hasCriticalChance;
 
         public bool HasCriticalChance
         {
@@ -41,20 +39,23 @@ namespace BattleArena.Warriors
            private set { _hasCriticalChance = value; }
         }
 
+        TeamType IHealable.TeamType => throw new NotImplementedException();
 
-        protected Warrior(string name, int health, int attackPower, WarriorType warriorType)
+        protected Warrior(string name, int health, int attackPower, WarriorType warriorType, TeamType teamType)
         {
             Name = name;
             Health = health;
             AttackPower = attackPower;
             WarriorType = warriorType;
+            TeamType = teamType;
         }
 
-        protected Warrior(int health, int attackPower, WarriorType warriorType)
+        protected Warrior(int health, int attackPower, WarriorType warriorType, TeamType teamType)
         {
             Health = health;
             AttackPower = attackPower;
             WarriorType = warriorType;
+            TeamType = teamType;
         }
 
         protected virtual void TakeDamage(DamageInfo damage)
@@ -77,5 +78,14 @@ namespace BattleArena.Warriors
         }
 
         public abstract void Attack(Warrior target);
+
+        public void ReceiveHeal(int amount, Warrior healer)
+        {
+            if (healer.TeamType == TeamType);
+            {
+                Health += amount;
+                Console.WriteLine($"\t->{Name}: Received healing from {healer.Name}! Health is now {Health}");
+            }
+        }
     }
 }

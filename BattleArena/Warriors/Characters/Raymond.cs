@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BattleArena.Combat;
+using BattleArena.Enums;
+using System;
 using System.Threading;
 
 namespace BattleArena.Warriors
@@ -8,7 +10,7 @@ namespace BattleArena.Warriors
         public int BengDamage { get; set; }
 
         public Raymond(int health, int attackPower)
-            : base("Raymond", health, attackPower, WarriorType.Marksman)
+            : base("Raymond", health, attackPower, WarriorType.Marksman, TeamType.A)
         {
             attackPower += BengDamage;
         }
@@ -16,7 +18,7 @@ namespace BattleArena.Warriors
 
         public override void Attack(Warrior target)
         {
-            var dmginfo = new DamageInfo(AttackPower, "beng", HasCriticalChance);
+            var dmginfo = new DamageInfo(AttackPower, "beng", HasCriticalChance, this);
             TakeDamage(dmginfo);
 
             Console.WriteLine($"\t->{Name}: Yare ka sakin {target.Name}");
@@ -33,5 +35,7 @@ namespace BattleArena.Warriors
             
             
         }
+
+        
     }
 }
